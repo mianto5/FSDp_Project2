@@ -49,6 +49,38 @@
 			</div>
 		</div>
 	</nav>
+	<div class="container">
+		<h5>Register a new student</h5>
+	</div>
+	<div class="container">
+		<%
+		String error = (String) request.getAttribute("error");
+		if(error !=  null){%>
+			<div class="error"><%= error %></div>
+		<%} %>
+		<form action="students" method="post">
 
+			<div class="row">
+				<div class="col-lg-6 col-lg-offset-3">
+					<div class="form-group">
+						<label for="fname">Student's First Name: </label> <input type="text"
+							class="form-control" id="fname" placeholder="Enter First Name" name="fname">
+					</div>
+
+					<div class="form-group">
+						<label for="lname">Student's Last Name: </label> <input type="text"
+							class="form-control" id="lname" placeholder="Enter Last Name" name="lname">
+					</div>
+					<div class="form-group">
+						<label for="cid">Class ID: </label> <input type="text"
+							class="form-control" id="cid" placeholder="Enter Class ID" name="cid">
+					</div>
+					<div>
+						<input type="submit" class="btn btn-primary" value="Register" />
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

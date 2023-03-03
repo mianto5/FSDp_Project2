@@ -27,26 +27,26 @@ public class Test {
 		System.out.println(addClass(c1));*/
 		
 		LAstudent st1 = new LAstudent();
-		st1.setFname("Barry");
-		st1.setLname("Allen");
-		st1.setCid("b1");
+		st1.setFname("Mary Jane");
+		st1.setLname("Watson");
+		st1.setCid("a1");
 		
 		System.out.println(addStudent(st1));
 		
-		LAsubject sb1 = new LAsubject();
+		/*LAsubject sb1 = new LAsubject();
 		sb1.setSname("Biology");
 		addSubject(sb1);
 		
-		/*LAteacher t1 = new LAteacher();
+		LAteacher t1 = new LAteacher();
 		t1.setFname("Bruce");
 		t1.setLname("Banner");
-		System.out.println(addTeacher(t1));*/
+		System.out.println(addTeacher(t1));
 		
 		LAassign a1 = new LAassign();
 		a1.setCid("a1");
 		a1.setSbid(2);
 		a1.setTid(1);
-		addAssignment(a1);
+		addAssignment(a1);*/
 
 	}
 
