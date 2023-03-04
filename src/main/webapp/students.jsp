@@ -1,5 +1,9 @@
+<%@page import="com.bean.LAstudent"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,5 +86,30 @@
 			</div>
 		</form>
 	</div>
+	<div class="container">
+		<h5>Registered students</h5>
+	</div>
+    <div align="center">
+        <table class="table" border="1">
+            <tr>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Student's ID</th>
+                <th>Class ID</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <c:forEach var="student" items="${requestScope.studentList }">
+				<tr>
+					<td>${ student.lname}</td>
+					<td>${ student.fname}</td>
+					<td>${ student.stid}</td>
+					<td>${ student.cid}</td>
+					<td><a href="edit?stid=${ student.stid}">Edit</a> </td>
+					<td><a href="delete?stid=${ student.stid}">Delete</a> </td>
+				</tr>
+			</c:forEach>
+        </table>
+    </div>
 </body>
 </html>

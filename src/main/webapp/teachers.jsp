@@ -49,6 +49,28 @@
 			</div>
 		</div>
 	</nav>
-
+	<div class="container">
+		<h5>Registered students</h5>
+	</div>
+    <div align="center">
+        <table class="table" border="1">
+            <tr>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Teachers's ID</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <c:forEach var="teacher" items="${teacherList}">
+                <tr>
+                    <td><c:out value="${teacher.lname}" /></td>
+                    <td><c:out value="${teacher.fname}" /></td>
+                    <td><c:out value="${teacher.tid}" /></td>
+                    <td><a href="edit?id=<c:out value='${teacher.tid}' />">Edit</a></td>
+                    <td><a href="delete?id=<c:out value='${teacher.tid}' />">Delete</a></td>                   
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 </body>
 </html>

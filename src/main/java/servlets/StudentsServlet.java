@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,7 +19,7 @@ import com.hibernate.DBcommunication;
 @WebServlet("/students")
 public class StudentsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private DBcommunication dbcom = new DBcommunication();   
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -32,7 +33,23 @@ public class StudentsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.sendRedirect("students.jsp");
+		//getServletContext().getContextPath();
+		List<LAstudent> studentList = dbcom.getAllStudents();
+		if(studentList == null)
+			System.out.println("studentList is empty");
+		else
+			System.out.println("studentList is not empty");
+		
+		try {
+			request.setAttribute("studentList", studentList);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("students.jsp");
+			dispatcher.forward(request, response);
+				
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//response.sendRedirect("students.jsp");
 	}
 
 	/**
@@ -60,7 +77,6 @@ public class StudentsServlet extends HttpServlet {
 			return;
 		}
 		
-		DBcommunication dbcom = new DBcommunication();
 		LAstudent st = new LAstudent(fname, lname, cid);
 		
 		try {
@@ -69,7 +85,7 @@ public class StudentsServlet extends HttpServlet {
 				response.sendRedirect("students.jsp");
 			} else {
 				//response.sendRedirect("register.html");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("students.html");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("students.jsp");
 				request.setAttribute("error", "Registration unsuccessful.");
 				dispatcher.forward(request, response);
 			}
@@ -78,6 +94,8 @@ public class StudentsServlet extends HttpServlet {
 			response.sendRedirect("index.jsp");
 			
 		}
+		
+		
 	}
 
 }
