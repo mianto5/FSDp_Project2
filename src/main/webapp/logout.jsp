@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Learner's Academy Logout</title>
+<title>LA Logout</title>
 </head>
 <body>
 	<%

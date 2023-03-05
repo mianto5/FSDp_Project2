@@ -15,26 +15,16 @@ import com.bean.LAsubject;
 import com.bean.LAteacher;
 import com.hibernate.DBcommunication;
 
-/**
- * Servlet implementation class EditAssignServlet
- */
 @WebServlet("/editAssign")
 public class EditAssignServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBcommunication dbcom = new DBcommunication();   
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public EditAssignServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		int aid = Integer.parseInt(request.getParameter("aid"));
 		try {
 			LAassign assign = dbcom.getAssignmentById(aid); 
@@ -47,25 +37,15 @@ public class EditAssignServlet extends HttpServlet {
 			dispatcherAs.forward(request, response);
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		int aid = Integer.parseInt(request.getParameter("aid"));
 		String cid = request.getParameter("cid");
 		int sbid = Integer.parseInt(request.getParameter("sbid"));
 		int tid = Integer.parseInt(request.getParameter("tid"));
-		
-		System.out.println(aid);
-		System.out.println(cid);
-		System.out.println(sbid);
-		System.out.println(tid);
 		
 		if(sbid == 0 || tid == 0) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("editAssign.jsp");
@@ -73,7 +53,6 @@ public class EditAssignServlet extends HttpServlet {
 			request.setAttribute("sbid", sbid);
 			request.setAttribute("tid", tid);
 			dispatcher.forward(request, response);
-
 			return;
 			}
 		
@@ -84,9 +63,7 @@ public class EditAssignServlet extends HttpServlet {
 			dbcom.updateAssignment(as);
 			response.sendRedirect("assign");
 		}catch (Exception e) {
-			// keep me on registration page
 			response.sendRedirect("index.jsp");
 		}
 	}
-
 }

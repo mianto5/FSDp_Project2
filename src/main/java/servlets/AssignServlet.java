@@ -24,19 +24,12 @@ import com.hibernate.DBcommunication;
 public class AssignServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBcommunication dbcom = new DBcommunication();   
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    
     public AssignServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try {
 			List<LAassign> assignList = dbcom.getAllAssignments();
 			List<LAclass> classList = dbcom.getAllClasses();
@@ -50,23 +43,14 @@ public class AssignServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 				
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String cid = request.getParameter("cid");
 		int sbid = Integer.parseInt(request.getParameter("sbid"));
 		int tid = Integer.parseInt(request.getParameter("tid"));
-		
-		System.out.println(cid);
-		System.out.println(sbid);
-		System.out.println(tid);
 		
 		if(cid == null || cid.isEmpty() || sbid == 0 || tid == 0)
 		{
@@ -84,19 +68,14 @@ public class AssignServlet extends HttpServlet {
 		
 		try {
 			if(dbcom.addAssignment(as)){
-				// take me to which page? login page
 				response.sendRedirect("assign");
 			} else {
-				//response.sendRedirect("register.html");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("assign");
 				request.setAttribute("message", "Assignment unsuccessful.");
 				dispatcher.forward(request, response);
 			}
 		} catch (Exception e) {
-			// keep me on registration page
 			response.sendRedirect("index.jsp");
-			
 		}
 	}
-
 }

@@ -12,7 +12,6 @@
 		<property name="show_sql">true</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<property name="hibernate.current_session_context_class">thread</property>
-		<!-- <mapping resource="learnersacademy.hbm.xml"></mapping> -->
 		<mapping class="com.bean.LAassign"></mapping>
 		<mapping class="com.bean.LAclass"></mapping>
 		<mapping class="com.bean.LAstudent"></mapping>

@@ -14,27 +14,16 @@ import com.bean.LAclass;
 import com.bean.LAstudent;
 import com.hibernate.DBcommunication;
 
-/**
- * Servlet implementation class StudentsServlet
- */
 @WebServlet("/students")
 public class StudentsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBcommunication dbcom = new DBcommunication();   
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public StudentsServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 		try {
 			List<LAstudent> studentList = dbcom.getAllStudents();
 			List<LAclass> classList = dbcom.getAllClasses();
@@ -44,23 +33,14 @@ public class StudentsServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 				
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
 		String cid = request.getParameter("cid");
-		
-		System.out.println(fname);
-		System.out.println(lname);
-		System.out.println(cid);
 		
 		if(fname == null || fname.isEmpty() || lname == null || lname.isEmpty() || cid == null || cid.isEmpty())
 		{
@@ -70,7 +50,6 @@ public class StudentsServlet extends HttpServlet {
 			request.setAttribute("lname", lname);
 			request.setAttribute("cid", cid);
 			dispatcher.forward(request, response);
-
 			return;
 		}
 		
@@ -78,21 +57,14 @@ public class StudentsServlet extends HttpServlet {
 		
 		try {
 			if(dbcom.addStudent(st)){
-				// take me to which page? login page
 				response.sendRedirect("students");
 			} else {
-				//response.sendRedirect("register.html");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("students");
 				request.setAttribute("message", "Registration unsuccessful.");
 				dispatcher.forward(request, response);
 			}
 		} catch (Exception e) {
-			// keep me on registration page
 			response.sendRedirect("index.jsp");
-			
 		}
-		
-		
 	}
-
 }

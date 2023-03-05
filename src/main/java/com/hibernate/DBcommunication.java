@@ -1,12 +1,9 @@
 package com.hibernate;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -23,6 +20,8 @@ public class DBcommunication {
 
 	private static SessionFactory factory = HibernateConfig.getSessionFactory();
 	
+	// LAstudent methods
+	
 	public boolean addStudent(LAstudent st){
 		boolean success = true;
 		Session session = factory.openSession();
@@ -30,32 +29,6 @@ public class DBcommunication {
 		try{
 			transaction = session.beginTransaction();
 			session.save(st);
-			transaction.commit();
-		}catch (HibernateException e) {
-			if (transaction!=null)
-				transaction.rollback();
-			success = false;
-			e.printStackTrace(); 
-		}finally {
-			session.close(); 
-		}
-		return success;
-	}
-	
-	public LAstudent getStudentById(int stid) {
-		Session session = factory.openSession();
-		LAstudent st = session.get(LAstudent.class, stid);
-		session.close();
-		return st;
-	}
-	
-	public boolean updateStudent(LAstudent st) {
-		boolean success = true;
-		Session session = factory.openSession();
-		Transaction transaction = null;
-		try{
-			transaction = session.beginTransaction();
-			session.update(st);
 			transaction.commit();
 		}catch (HibernateException e) {
 			if (transaction!=null)
@@ -97,6 +70,32 @@ public class DBcommunication {
 		session.close();
 		Collections.sort(studentList);
 		return studentList;
+	}
+	
+	public LAstudent getStudentById(int stid) {
+		Session session = factory.openSession();
+		LAstudent st = session.get(LAstudent.class, stid);
+		session.close();
+		return st;
+	}
+	
+	public boolean updateStudent(LAstudent st) {
+		boolean success = true;
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try{
+			transaction = session.beginTransaction();
+			session.update(st);
+			transaction.commit();
+		}catch (HibernateException e) {
+			if (transaction!=null)
+				transaction.rollback();
+			success = false;
+			e.printStackTrace(); 
+		}finally {
+			session.close(); 
+		}
+		return success;
 	}
 	
 	// LAclass methods

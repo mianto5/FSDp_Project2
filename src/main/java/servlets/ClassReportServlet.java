@@ -17,26 +17,15 @@ import com.bean.LAsubject;
 import com.bean.LAteacher;
 import com.hibernate.DBcommunication;
 
-/**
- * Servlet implementation class ClassesServlet
- */
 @WebServlet("/classReport")
 public class ClassReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBcommunication dbcom = new DBcommunication();   
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ClassReportServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try {
 			List<LAclass> classList = dbcom.getAllClasses();
 			List<LAstudent> studentList = dbcom.getAllStudents();
@@ -53,17 +42,11 @@ public class ClassReportServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 				
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }
