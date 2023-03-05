@@ -118,6 +118,27 @@ public class DBcommunication {
 		return success;
 	}
 	
+	public boolean deleteClassById(String cid) {
+		boolean success = true;
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try{
+			transaction = session.beginTransaction();
+			LAclass cl = session.get(LAclass.class, cid);
+			if (cl!=null)
+				session.delete(cl);
+			transaction.commit();
+		}catch (HibernateException e) {
+			if (transaction!=null)
+				transaction.rollback();
+			success = false;
+			e.printStackTrace(); 
+		}finally {
+			session.close(); 
+		}
+		return success;
+	}
+	
 	public List<LAclass> getAllClasses() {
 		Session session = factory.openSession();
 		CriteriaQuery<LAclass> cq = session.getCriteriaBuilder().createQuery(LAclass.class);
@@ -148,6 +169,27 @@ public class DBcommunication {
 		return success;
 	}
 	
+	public boolean deleteTeacherById(int tid) {
+		boolean success = true;
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try{
+			transaction = session.beginTransaction();
+			LAteacher te = session.get(LAteacher.class, tid);
+			if (te!=null)
+				session.delete(te);
+			transaction.commit();
+		}catch (HibernateException e) {
+			if (transaction!=null)
+				transaction.rollback();
+			success = false;
+			e.printStackTrace(); 
+		}finally {
+			session.close(); 
+		}
+		return success;
+	}
+	
 	public List<LAteacher> getAllTeachers() {
 		Session session = factory.openSession();
 		CriteriaQuery<LAteacher> cq = session.getCriteriaBuilder().createQuery(LAteacher.class);
@@ -166,6 +208,27 @@ public class DBcommunication {
 		try{
 			transaction = session.beginTransaction();
 			session.save(sb);
+			transaction.commit();
+		}catch (HibernateException e) {
+			if (transaction!=null)
+				transaction.rollback();
+			success = false;
+			e.printStackTrace(); 
+		}finally {
+			session.close(); 
+		}
+		return success;
+	}
+	
+	public boolean deleteSubjectById(int sbid) {
+		boolean success = true;
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try{
+			transaction = session.beginTransaction();
+			LAsubject sb = session.get(LAsubject.class, sbid);
+			if (sb!=null)
+				session.delete(sb);
 			transaction.commit();
 		}catch (HibernateException e) {
 			if (transaction!=null)
@@ -212,6 +275,27 @@ public class DBcommunication {
 		try{
 			transaction = session.beginTransaction();
 			session.save(as);
+			transaction.commit();
+		}catch (HibernateException e) {
+			if (transaction!=null)
+				transaction.rollback();
+			success = false;
+			e.printStackTrace(); 
+		}finally {
+			session.close(); 
+		}
+		return success;
+	}
+	
+	public boolean deleteAssignById(int aid) {
+		boolean success = true;
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try{
+			transaction = session.beginTransaction();
+			LAassign as = session.get(LAassign.class, aid);
+			if (as!=null)
+				session.delete(as);
 			transaction.commit();
 		}catch (HibernateException e) {
 			if (transaction!=null)

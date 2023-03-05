@@ -105,7 +105,7 @@
 					<td>${ teacher.lname}</td>
 					<td>${ teacher.fname}</td>
 					<td>${ teacher.tid}</td>
-					<td><a href="delete?stid=${ student.stid}">Delete</a> </td>
+					<td><a href="delete?ent=te&tid=${ teacher.tid}">Delete</a> </td>
 				</tr>
 			</c:forEach>
         </table>

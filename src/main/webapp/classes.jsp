@@ -102,7 +102,7 @@
 				<tr>
 					<td>${ cl.cname}</td>
 					<td>${ cl.cid}</td>
-					<td><a href="delete?cid=${ cl.cid}">Delete</a> </td>
+					<td><a href="delete?ent=cl&cid=${ cl.cid}">Delete</a> </td>
 				</tr>
 			</c:forEach>
         </table>

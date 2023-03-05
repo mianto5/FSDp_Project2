@@ -98,7 +98,7 @@
 				<tr>
 					<td>${ sb.sname}</td>
 					<td>${ sb.sbid}</td>
-					<td><a href="delete?sbid=${ sb.sbid}">Delete</a> </td>
+					<td><a href="delete?ent=sb&sbid=${ sb.sbid}">Delete</a> </td>
 				</tr>
 			</c:forEach>
         </table>

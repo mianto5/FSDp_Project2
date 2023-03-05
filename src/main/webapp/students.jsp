@@ -117,7 +117,7 @@
 					<td>${ student.stid}</td>
 					<td>${ student.cid}</td>
 					<td><a href="edit?stid=${ student.stid}">Edit</a> </td>
-					<td><a href="delete?stid=${ student.stid}">Delete</a> </td>
+					<td><a href="delete?ent=st&stid=${ student.stid}">Delete</a> </td>
 				</tr>
 			</c:forEach>
         </table>

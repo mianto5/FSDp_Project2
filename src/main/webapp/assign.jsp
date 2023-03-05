@@ -120,7 +120,7 @@
 					<td>${ assign.cid}</td>
 					<td>${ assign.sbid}</td>
 					<td>${ assign.tid}</td>
-					<td><a href="delete?stid=${ assign.aid}">Delete</a> </td>
+					<td><a href="delete?ent=as&aid=${ assign.aid}">Delete</a> </td>
 				</tr>
 			</c:forEach>
         </table>
