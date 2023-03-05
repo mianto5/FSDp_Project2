@@ -2,8 +2,10 @@
 <%@page import="com.bean.LAclass"%>
 <%@page import="com.bean.LAstudent"%>
 <%@page import="com.bean.LAsubject"%>
+<%@page import="com.bean.LAteacher"%>
 <%@page import="com.hibernate.DBcommunication"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.SortedSet"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -64,35 +66,45 @@
 		</div>
 	</nav>
 	<%
-		List<LAsubject> subjectList = (List<LAsubject>) request.getAttribute("subjectList");
 		List<LAassign> assignList = (List<LAassign>) request.getAttribute("assignList");
+		List<LAclass> classList = (List<LAclass>) request.getAttribute("classList");
+		List<LAstudent> studentList = (List<LAstudent>) request.getAttribute("studentList");
+		List<LAsubject> subjectList = (List<LAsubject>) request.getAttribute("subjectList");
+		List<LAteacher> teacherList = (List<LAteacher>) request.getAttribute("teacherList");
 		DBcommunication dbCom = new DBcommunication();
 	%>
 	<div class="container">
 		<h3>Class Report</h3>
 	</div>
-    <div>
-    	<c:forEach items="${requestScope.classList}" var="cl">
-    		<h4>${ cl.cname}</h4>
-    		<h5>Students</h5>
-    		<ul>
-    			<c:forEach items="${requestScope.studentList}" var="st">
-    				<c:if test="${st.cid == cl.cid}">
-						<li>${st.lname} ${st.fname}</li>
-					</c:if>
-    			</c:forEach>
-    		</ul>
-    		<h5>Teachers</h5>
-    		<br>
-    		<h5>Subjects</h5>
-    		<ul>
-    			<c:forEach items="${requestScope.assignList}" var="a">
-    				<c:if test="${a.cid == cl.cid}">
-						<li>${a.sbid}</li>
-					</c:if>
-    			</c:forEach>
-    		</ul>
-		</c:forEach>
-    </div>
+	<% for(LAclass c:classList){
+		String cname = c.getCname();
+		%><h4><%= cname %></h4>
+		<h5>Students</h5>
+		<ul><%
+		for(LAstudent st:studentList){
+			if(st.getCid().equals(c.getCid())){
+				String stLname = st.getLname();
+				String stFname = st.getFname();
+				%><li><%= stLname+" "+stFname %></li><%
+			}
+		}
+		%></ul>
+		<h5>Teachers</h5>
+		<ul><%
+		for(LAassign as:assignList){
+			if(as.getCid().equals(c.getCid())){
+				%><li><%= dbCom.getNameOfTeachById(as.getTid())+" ("+dbCom.getNameOfSubById(as.getSbid())+")" %></li><%
+			}
+		}
+		%></ul>
+		<h5>Subjects</h5>
+		<ul><%
+		for(LAassign as:assignList){
+			if(as.getCid().equals(c.getCid())){
+				%><li><%= dbCom.getNameOfSubById(as.getSbid())+" ("+dbCom.getNameOfTeachById(as.getTid())+")" %></li><%
+			}
+		}
+		%></ul><%
+	}%>
 </body>
 </html>

@@ -76,7 +76,7 @@ public class EditStudentServlet extends HttpServlet {
 			}
 		
 		LAstudent st = new LAstudent(fname, lname, cid);
-		st.setCid(cid);
+		st.setStid(stid);
 		
 		try {
 			if(dbcom.updateStudent(st)){

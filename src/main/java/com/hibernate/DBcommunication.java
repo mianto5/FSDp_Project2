@@ -203,6 +203,13 @@ public class DBcommunication {
 		return teacherList;
 	}
 	
+	public String getNameOfTeachById(int tid) {
+		Session session = factory.openSession();
+		LAteacher t = session.get(LAteacher.class, tid);
+		session.close();
+		return t.getLname()+" "+t.getFname();
+	}
+	
 	// LAsubject methods
 	
 	public boolean addSubject(LAsubject sb){
