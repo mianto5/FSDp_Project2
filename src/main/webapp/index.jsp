@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Learner's Academy Home Page</title>
+<title>LA Home Page</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -48,9 +48,13 @@
 					}
 					else if (id.equals("admin")) {
 					%>
+					<li class="nav-item"><a class="nav-link" href="classReport">Class Report</a>
+					</li>
 					<li class="nav-item"><a class="nav-link" href="classes">Classes</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="teachers.jsp">Teachers</a>
+					<li class="nav-item"><a class="nav-link" href="subjects">Subjects</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="teachers">Teachers</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="students">Students</a>
 					</li>

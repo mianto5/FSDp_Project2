@@ -1,4 +1,4 @@
-<%@page import="com.bean.LAclass"%>
+<%@page import="com.bean.LAsubject"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>LA Classes</title>
+<title>LA Subjects</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -60,7 +60,7 @@
 		</div>
 	</nav>
 	<div class="container">
-		<h5>Add a new class</h5>
+		<h5>Add a new subject</h5>
 	</div>
 	<div class="container">
 		<%
@@ -68,41 +68,37 @@
 		if(message !=  null){%>
 			<div class="mesagge"><%= message %></div>
 		<%} %>
-		<form action="classes" method="post">
+		<form action="subjects" method="post">
 
 			<div class="row">
 				<div class="col-lg-6 col-lg-offset-3">
 					<div class="form-group">
-						<label for="cname">Class Name: </label> <input type="text"
-							class="form-control" id="cname" placeholder="Enter Class Name" name="cname">
-					</div>
-					<div class="form-group">
-						<label for="cid">Class ID: </label> <input type="text"
-							class="form-control" id="cid" placeholder="Enter Class ID" name="cid">
+						<label for="sname">Subject Name: </label> <input type="text"
+							class="form-control" id="sname" placeholder="Enter Subject Name" name="sname">
 					</div>
 					<div>
-						<input type="submit" class="btn btn-primary" value="Add class" />
+						<input type="submit" class="btn btn-primary" value="Add subject" />
 					</div>
 				</div>
 			</div>
 		</form>
 	</div>
 	<br>
-	<div align="center" class="container">
-		<h5>Added classes</h5>
+    <div align="center" class="container">
+		<h5>Added subjects</h5>
 	</div>
     <div align="center">
         <table class="table" border="1" cellpadding="5">
             <tr>
-                <th>Class Name</th>
-                <th>Class ID</th>
+                <th>Subject Name</th>
+                <th>Subject ID</th>
                 <th>Delete</th>
             </tr>
-            <c:forEach var="cl" items="${requestScope.classList }">
+            <c:forEach var="sb" items="${requestScope.subjectList }">
 				<tr>
-					<td>${ cl.cname}</td>
-					<td>${ cl.cid}</td>
-					<td><a href="delete?cid=${ cl.cid}">Delete</a> </td>
+					<td>${ sb.sname}</td>
+					<td>${ sb.sbid}</td>
+					<td><a href="delete?sbid=${ sb.sbid}">Delete</a> </td>
 				</tr>
 			</c:forEach>
         </table>

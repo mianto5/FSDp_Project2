@@ -1,4 +1,8 @@
+<%@page import="com.bean.LAassign"%>
 <%@page import="com.bean.LAclass"%>
+<%@page import="com.bean.LAstudent"%>
+<%@page import="com.bean.LAsubject"%>
+<%@page import="com.hibernate.DBcommunication"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -8,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>LA Classes</title>
+<title>LA Class Report</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -19,7 +23,7 @@
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
 	<style>
-	.message{
+	.error{
 		color:red;
 	}
 	</style>
@@ -59,53 +63,36 @@
 			</div>
 		</div>
 	</nav>
+	<%
+		List<LAsubject> subjectList = (List<LAsubject>) request.getAttribute("subjectList");
+		List<LAassign> assignList = (List<LAassign>) request.getAttribute("assignList");
+		DBcommunication dbCom = new DBcommunication();
+	%>
 	<div class="container">
-		<h5>Add a new class</h5>
+		<h3>Class Report</h3>
 	</div>
-	<div class="container">
-		<%
-		String message = (String) request.getAttribute("message");
-		if(message !=  null){%>
-			<div class="mesagge"><%= message %></div>
-		<%} %>
-		<form action="classes" method="post">
-
-			<div class="row">
-				<div class="col-lg-6 col-lg-offset-3">
-					<div class="form-group">
-						<label for="cname">Class Name: </label> <input type="text"
-							class="form-control" id="cname" placeholder="Enter Class Name" name="cname">
-					</div>
-					<div class="form-group">
-						<label for="cid">Class ID: </label> <input type="text"
-							class="form-control" id="cid" placeholder="Enter Class ID" name="cid">
-					</div>
-					<div>
-						<input type="submit" class="btn btn-primary" value="Add class" />
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
-	<br>
-	<div align="center" class="container">
-		<h5>Added classes</h5>
-	</div>
-    <div align="center">
-        <table class="table" border="1" cellpadding="5">
-            <tr>
-                <th>Class Name</th>
-                <th>Class ID</th>
-                <th>Delete</th>
-            </tr>
-            <c:forEach var="cl" items="${requestScope.classList }">
-				<tr>
-					<td>${ cl.cname}</td>
-					<td>${ cl.cid}</td>
-					<td><a href="delete?cid=${ cl.cid}">Delete</a> </td>
-				</tr>
-			</c:forEach>
-        </table>
+    <div>
+    	<c:forEach items="${requestScope.classList}" var="cl">
+    		<h4>${ cl.cname}</h4>
+    		<h5>Students</h5>
+    		<ul>
+    			<c:forEach items="${requestScope.studentList}" var="st">
+    				<c:if test="${st.cid == cl.cid}">
+						<li>${st.lname} ${st.fname}</li>
+					</c:if>
+    			</c:forEach>
+    		</ul>
+    		<h5>Teachers</h5>
+    		<br>
+    		<h5>Subjects</h5>
+    		<ul>
+    			<c:forEach items="${requestScope.assignList}" var="a">
+    				<c:if test="${a.cid == cl.cid}">
+						<li>${a.sbid}</li>
+					</c:if>
+    			</c:forEach>
+    		</ul>
+		</c:forEach>
     </div>
 </body>
 </html>

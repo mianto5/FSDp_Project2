@@ -16,16 +16,16 @@ import com.bean.LAsubject;
 import com.hibernate.DBcommunication;
 
 /**
- * Servlet implementation class ClassesServlet
+ * Servlet implementation class SubjectsServlet
  */
-@WebServlet("/classes")
-public class ClassesServlet extends HttpServlet {
+@WebServlet("/subjects")
+public class SubjectsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBcommunication dbcom = new DBcommunication();   
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClassesServlet() {
+    public SubjectsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,9 +36,9 @@ public class ClassesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			List<LAclass> classList = dbcom.getAllClasses();
-			request.setAttribute("classList", classList);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("classes.jsp");
+			List<LAsubject> subjectList = dbcom.getAllSubjects();
+			request.setAttribute("subjectList", subjectList);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("subjects.jsp");
 			dispatcher.forward(request, response);
 				
 		} catch (Exception e) {
@@ -52,33 +52,30 @@ public class ClassesServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String cid = request.getParameter("cid");
-		String cname = request.getParameter("cname");
+		String sname = request.getParameter("sname");
 		
-		System.out.println(cid);
-		System.out.println(cname);
+		System.out.println(sname);
 		
-		if(cid == null || cid.isEmpty() || cname == null || cname.isEmpty())
+		if(sname == null || sname.isEmpty())
 		{
-			RequestDispatcher dispatcher = request.getRequestDispatcher("classes.jsp");
-			request.setAttribute("message", "No box should stay empty.");
-			request.setAttribute("cid", cid);
-			request.setAttribute("cname", cname);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("subjects.jsp");
+			request.setAttribute("message", "Subject name should not stay empty.");
+			request.setAttribute("sname", sname);
 			dispatcher.forward(request, response);
 
 			return;
 		}
 		
-		LAclass cl = new LAclass(cid, cname);
+		LAsubject sb = new LAsubject(sname);
 		
 		try {
-			if(dbcom.addClass(cl)){
+			if(dbcom.addSubject(sb)){
 				// take me to which page? login page
-				response.sendRedirect("classes");
+				response.sendRedirect("subjects");
 			} else {
 				//response.sendRedirect("register.html");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("classes");
-				request.setAttribute("message", "Class not added.");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("subjects");
+				request.setAttribute("message", "Subject not added.");
 				dispatcher.forward(request, response);
 			}
 		} catch (Exception e) {

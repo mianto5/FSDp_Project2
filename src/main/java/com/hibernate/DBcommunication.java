@@ -99,6 +99,25 @@ public class DBcommunication {
 	
 	// LAclass methods
 	
+	public boolean addClass(LAclass cl){
+		boolean success = true;
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try{
+			transaction = session.beginTransaction();
+			session.save(cl);
+			transaction.commit();
+		}catch (HibernateException e) {
+			if (transaction!=null)
+				transaction.rollback();
+			success = false;
+			e.printStackTrace(); 
+		}finally {
+			session.close(); 
+		}
+		return success;
+	}
+	
 	public List<LAclass> getAllClasses() {
 		Session session = factory.openSession();
 		CriteriaQuery<LAclass> cq = session.getCriteriaBuilder().createQuery(LAclass.class);
@@ -110,6 +129,25 @@ public class DBcommunication {
 	
 	// LAteacher methods
 	
+	public boolean addTeacher(LAteacher te){
+		boolean success = true;
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try{
+			transaction = session.beginTransaction();
+			session.save(te);
+			transaction.commit();
+		}catch (HibernateException e) {
+			if (transaction!=null)
+				transaction.rollback();
+			success = false;
+			e.printStackTrace(); 
+		}finally {
+			session.close(); 
+		}
+		return success;
+	}
+	
 	public List<LAteacher> getAllTeachers() {
 		Session session = factory.openSession();
 		CriteriaQuery<LAteacher> cq = session.getCriteriaBuilder().createQuery(LAteacher.class);
@@ -120,6 +158,25 @@ public class DBcommunication {
 	}
 	
 	// LAsubject methods
+	
+	public boolean addSubject(LAsubject sb){
+		boolean success = true;
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try{
+			transaction = session.beginTransaction();
+			session.save(sb);
+			transaction.commit();
+		}catch (HibernateException e) {
+			if (transaction!=null)
+				transaction.rollback();
+			success = false;
+			e.printStackTrace(); 
+		}finally {
+			session.close(); 
+		}
+		return success;
+	}
 	
 	public List<LAsubject> getAllSubjects() {
 		Session session = factory.openSession();

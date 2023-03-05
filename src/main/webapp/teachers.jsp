@@ -1,10 +1,14 @@
+<%@page import="com.bean.LAteacher"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Learner's Academy Teachers</title>
+<title>LA Teachers</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -15,7 +19,7 @@
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
 	<style>
-	.error{
+	.message{
 		color:red;
 	}
 	</style>
@@ -36,9 +40,13 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="index.jsp">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="classes.jsp">Classes</a>
+					<li class="nav-item"><a class="nav-link" href="classReport">Class Report</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="teachers.jsp">Teachers</a>
+					<li class="nav-item"><a class="nav-link" href="classes">Classes</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="subjects">Subjects</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="teachers">Teachers</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="students">Students</a>
 					</li>
@@ -52,26 +60,54 @@
 		</div>
 	</nav>
 	<div class="container">
-		<h5>Registered students</h5>
+		<h5>Add a new teacher</h5>
+	</div>
+	<div class="container">
+		<%
+		String message = (String) request.getAttribute("message");
+		if(message !=  null){%>
+			<div class="mesagge"><%= message %></div>
+		<%} %>
+		<form action="teachers" method="post">
+
+			<div class="row">
+				<div class="col-lg-6 col-lg-offset-3">
+					<div class="form-group">
+						<label for="fname">Teacher's First Name: </label> <input type="text"
+							class="form-control" id="fname" placeholder="Enter First Name" name="fname">
+					</div>
+
+					<div class="form-group">
+						<label for="lname">Teacher's Last Name: </label> <input type="text"
+							class="form-control" id="lname" placeholder="Enter Last Name" name="lname">
+					</div>
+					<div>
+						<input type="submit" class="btn btn-primary" value="Add teacher" />
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<br>
+	<div align="center" class="container">
+		<h5>Added teachers</h5>
 	</div>
     <div align="center">
-        <table class="table" border="1">
+        <table class="table" border="1" cellpadding="5">
             <tr>
                 <th>Last Name</th>
                 <th>First Name</th>
-                <th>Teachers's ID</th>
-                <th>Edit</th>
+                <th>Teacher's ID</th>
                 <th>Delete</th>
             </tr>
-            <c:forEach var="teacher" items="${teacherList}">
-                <tr>
-                    <td><c:out value="${teacher.lname}" /></td>
-                    <td><c:out value="${teacher.fname}" /></td>
-                    <td><c:out value="${teacher.tid}" /></td>
-                    <td><a href="edit?id=<c:out value='${teacher.tid}' />">Edit</a></td>
-                    <td><a href="delete?id=<c:out value='${teacher.tid}' />">Delete</a></td>                   
-                </tr>
-            </c:forEach>
+            <c:forEach var="teacher" items="${requestScope.teacherList }">
+				<tr>
+					<td>${ teacher.lname}</td>
+					<td>${ teacher.fname}</td>
+					<td>${ teacher.tid}</td>
+					<td><a href="delete?stid=${ student.stid}">Delete</a> </td>
+				</tr>
+			</c:forEach>
         </table>
     </div>
 </body>
