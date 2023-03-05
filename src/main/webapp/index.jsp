@@ -54,6 +54,8 @@
 					</li>
 					<li class="nav-item"><a class="nav-link" href="students">Students</a>
 					</li>
+					<li class="nav-item"><a class="nav-link" href="assign">Assignments</a>
+					</li>
 					<li class="nav-item"><a class="nav-link" href="logout.jsp">Logout</a>
 					</li>
 					<%

@@ -56,7 +56,7 @@
 		</div>
 	</nav>
 	<div class="container">
-		<h5>Register a new student</h5>
+		<h5>Assign subjects and teachers to classes</h5>
 	</div>
 	<div class="container">
 		<%
@@ -64,25 +64,25 @@
 		if(message !=  null){%>
 			<div class="mesagge"><%= message %></div>
 		<%} %>
-		<form action="students" method="post">
+		<form action="assign" method="post">
 
 			<div class="row">
 				<div class="col-lg-6 col-lg-offset-3">
 					<div class="form-group">
-						<label for="fname">Student's First Name: </label> <input type="text"
-							class="form-control" id="fname" placeholder="Enter First Name" name="fname">
-					</div>
-
-					<div class="form-group">
-						<label for="lname">Student's Last Name: </label> <input type="text"
-							class="form-control" id="lname" placeholder="Enter Last Name" name="lname">
-					</div>
-					<div class="form-group">
 						<label for="cid">Class ID: </label> <input type="text"
 							class="form-control" id="cid" placeholder="Enter Class ID" name="cid">
 					</div>
+
+					<div class="form-group">
+						<label for="sbid">Subject ID: </label> <input type="text"
+							class="form-control" id="sbid" placeholder="Enter Subject ID" name="sbid">
+					</div>
+					<div class="form-group">
+						<label for="tid">Teacher ID: </label> <input type="text"
+							class="form-control" id="tid" placeholder="Enter Teacher ID" name="tid">
+					</div>
 					<div>
-						<input type="submit" class="btn btn-primary" value="Register" />
+						<input type="submit" class="btn btn-primary" value="Assign" />
 					</div>
 				</div>
 			</div>
@@ -90,26 +90,22 @@
 	</div>
 	<br>
 	<div align="center" class="container">
-		<h5>Registered students</h5>
+		<h5>Assigned subjects and teachers</h5>
 	</div>
     <div align="center">
         <table class="table" border="1" cellpadding="5">
             <tr>
-                <th>Last Name</th>
-                <th>First Name</th>
-                <th>Student's ID</th>
                 <th>Class ID</th>
-                <th>Edit</th>
+                <th>Subject ID</th>
+                <th>Teacher ID</th>
                 <th>Delete</th>
             </tr>
-            <c:forEach var="student" items="${requestScope.studentList }">
+            <c:forEach var="assign" items="${requestScope.assignList }">
 				<tr>
-					<td>${ student.lname}</td>
-					<td>${ student.fname}</td>
-					<td>${ student.stid}</td>
-					<td>${ student.cid}</td>
-					<td><a href="edit?stid=${ student.stid}">Edit</a> </td>
-					<td><a href="delete?stid=${ student.stid}">Delete</a> </td>
+					<td>${ assign.cid}</td>
+					<td>${ assign.sbid}</td>
+					<td>${ assign.tid}</td>
+					<td><a href="delete?stid=${ assign.aid}">Delete</a> </td>
 				</tr>
 			</c:forEach>
         </table>

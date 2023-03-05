@@ -12,8 +12,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.bean.LAassign;
 import com.bean.LAclass;
 import com.bean.LAstudent;
+import com.bean.LAsubject;
 import com.bean.LAteacher;
 
 public class DBcommunication {
@@ -106,16 +108,63 @@ public class DBcommunication {
 		return classList;
 	}
 	
-	// přepsat!!
-	public static List<LAteacher> getAllTeachers() {
+	// LAteacher methods
+	
+	public List<LAteacher> getAllTeachers() {
 		Session session = factory.openSession();
 		CriteriaQuery<LAteacher> cq = session.getCriteriaBuilder().createQuery(LAteacher.class);
 		cq.from(LAteacher.class);
 		List<LAteacher> teacherList = session.createQuery(cq).getResultList();
-		for(LAteacher teacher: teacherList) {
-			System.out.println(teacher);
-		}
+		session.close();
 		return teacherList;
+	}
+	
+	// LAsubject methods
+	
+	public List<LAsubject> getAllSubjects() {
+		Session session = factory.openSession();
+		CriteriaQuery<LAsubject> cq = session.getCriteriaBuilder().createQuery(LAsubject.class);
+		cq.from(LAsubject.class);
+		List<LAsubject> subjectList = session.createQuery(cq).getResultList();
+		session.close();
+		return subjectList;
+	}
+	
+	public String getNameOfSubById(int sbid) {
+		Session session = factory.openSession();
+		LAsubject sb = session.get(LAsubject.class, sbid);
+		session.close();
+		return sb.getSname();
+	}
+	
+	// LAassign methods
+	
+	public List<LAassign> getAllAssignments() {
+		Session session = factory.openSession();
+		CriteriaQuery<LAassign> cq = session.getCriteriaBuilder().createQuery(LAassign.class);
+		cq.from(LAassign.class);
+		List<LAassign> assignList = session.createQuery(cq).getResultList();
+		session.close();
+		return assignList;
+	}
+	
+	public boolean addAssignment(LAassign as){
+		boolean success = true;
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try{
+			transaction = session.beginTransaction();
+			session.save(as);
+			transaction.commit();
+		}catch (HibernateException e) {
+			if (transaction!=null)
+				transaction.rollback();
+			success = false;
+			e.printStackTrace(); 
+		}finally {
+			session.close(); 
+		}
+		return success;
 	}
 	
 }

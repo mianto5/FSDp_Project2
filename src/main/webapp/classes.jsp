@@ -1,9 +1,14 @@
+<%@page import="com.bean.LAassign"%>
 <%@page import="com.bean.LAclass"%>
 <%@page import="com.bean.LAstudent"%>
+<%@page import="com.bean.LAsubject"%>
+<%@page import="com.hibernate.DBcommunication"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"
+    prefix="fn" %>
 
 <!DOCTYPE html>
 <html>
@@ -47,6 +52,8 @@
 					</li>
 					<li class="nav-item"><a class="nav-link" href="students">Students</a>
 					</li>
+					<li class="nav-item"><a class="nav-link" href="assign">Assignments</a>
+					</li>
 					<li class="nav-item"><a class="nav-link" href="logout.jsp">Logout</a>
 					</li>
 					
@@ -54,7 +61,11 @@
 			</div>
 		</div>
 	</nav>
-	
+	<%
+		List<LAsubject> subjectList = (List<LAsubject>) request.getAttribute("subjectList");
+		List<LAassign> assignList = (List<LAassign>) request.getAttribute("assignList");
+		DBcommunication dbCom = new DBcommunication();
+	%>
 	<div class="container">
 		<h3>Class Report</h3>
 	</div>
@@ -72,7 +83,13 @@
     		<h5>Teachers</h5>
     		<br>
     		<h5>Subjects</h5>
-    		<br>
+    		<ul>
+    			<c:forEach items="${requestScope.assignList}" var="a">
+    				<c:if test="${a.cid == cl.cid}">
+						<li>${a.sbid}</li>
+					</c:if>
+    			</c:forEach>
+    		</ul>
 		</c:forEach>
     </div>
 </body>
