@@ -79,17 +79,8 @@ public class EditStudentServlet extends HttpServlet {
 		st.setStid(stid);
 		
 		try {
-			if(dbcom.updateStudent(st)){
-				// take me to which page? login page
-				RequestDispatcher dispatcher = request.getRequestDispatcher("students");
-				request.setAttribute("message", "Update successful.");
-				dispatcher.forward(request, response);
-			} else {
-				//response.sendRedirect("register.html");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("students");
-				request.setAttribute("message", "Update unsuccessful.");
-				dispatcher.forward(request, response);
-			}
+			dbcom.updateStudent(st);
+			response.sendRedirect("students");
 		}catch (Exception e) {
 			// keep me on registration page
 			response.sendRedirect("index.jsp");

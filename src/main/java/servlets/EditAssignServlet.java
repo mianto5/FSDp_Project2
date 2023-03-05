@@ -81,17 +81,8 @@ public class EditAssignServlet extends HttpServlet {
 		as.setAid(aid);
 		
 		try {
-			if(dbcom.updateAssignment(as)){
-				// take me to which page? login page
-				RequestDispatcher dispatcher = request.getRequestDispatcher("assign");
-				request.setAttribute("message", "Update successful.");
-				dispatcher.forward(request, response);
-			} else {
-				//response.sendRedirect("register.html");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("assign");
-				request.setAttribute("message", "Update unsuccessful.");
-				dispatcher.forward(request, response);
-			}
+			dbcom.updateAssignment(as);
+			response.sendRedirect("assign");
 		}catch (Exception e) {
 			// keep me on registration page
 			response.sendRedirect("index.jsp");
