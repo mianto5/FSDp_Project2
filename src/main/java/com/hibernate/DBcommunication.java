@@ -1,5 +1,6 @@
 package com.hibernate;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -11,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.bean.LAclass;
 import com.bean.LAstudent;
 import com.bean.LAteacher;
 
@@ -93,6 +95,16 @@ public class DBcommunication {
 		return studentList;
 	}
 	
+	// LAclass methods
+	
+	public List<LAclass> getAllClasses() {
+		Session session = factory.openSession();
+		CriteriaQuery<LAclass> cq = session.getCriteriaBuilder().createQuery(LAclass.class);
+		cq.from(LAclass.class);
+		List<LAclass> classList = session.createQuery(cq).getResultList();
+		session.close();
+		return classList;
+	}
 	
 	// přepsat!!
 	public static List<LAteacher> getAllTeachers() {

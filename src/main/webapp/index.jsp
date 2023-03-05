@@ -48,7 +48,7 @@
 					}
 					else if (id.equals("admin")) {
 					%>
-					<li class="nav-item"><a class="nav-link" href="classes.jsp">Classes</a>
+					<li class="nav-item"><a class="nav-link" href="classes">Classes</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="teachers.jsp">Teachers</a>
 					</li>

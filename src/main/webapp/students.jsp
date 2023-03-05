@@ -40,7 +40,7 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="index.jsp">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="classes.jsp">Classes</a>
+					<li class="nav-item"><a class="nav-link" href="classes">Classes</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="teachers.jsp">Teachers</a>
 					</li>
