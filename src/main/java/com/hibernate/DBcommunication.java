@@ -37,83 +37,64 @@ public class DBcommunication {
 		return success;
 	}
 	
-	public static LAstudent getStudentById(int stid) {
+	public LAstudent getStudentById(int stid) {
 		Session session = factory.openSession();
 		LAstudent st = session.get(LAstudent.class, stid);
 		session.close();
 		return st;
 	}
 	
-	//update function
+	public boolean updateStudent(LAstudent st) {
+		boolean success = true;
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try{
+			transaction = session.beginTransaction();
+			session.update(st);
+			transaction.commit();
+		}catch (HibernateException e) {
+			if (transaction!=null)
+				transaction.rollback();
+			success = false;
+			e.printStackTrace(); 
+		}finally {
+			session.close(); 
+		}
+		return success;
+	}
 	
-	//delete function
+	public boolean deleteStudentById(int stid) {
+		boolean success = true;
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try{
+			transaction = session.beginTransaction();
+			LAstudent st = session.get(LAstudent.class, stid);
+			if (st!=null)
+				session.delete(st);
+			transaction.commit();
+		}catch (HibernateException e) {
+			if (transaction!=null)
+				transaction.rollback();
+			success = false;
+			e.printStackTrace(); 
+		}finally {
+			session.close(); 
+		}
+		return success;
+	}
 	
 	public List<LAstudent> getAllStudents() {
-		List<LAstudent> studentList;
-		try{
-			Session session = factory.openSession();
-			CriteriaQuery<LAstudent> cq = session.getCriteriaBuilder().createQuery(LAstudent.class);
-			cq.from(LAstudent.class);
-			studentList = session.createQuery(cq).getResultList();
-			session.close();
-			/*for(LAstudent student: studentList) {
-				System.out.println(student);
-			}*/
-		}catch (Exception e) {
-			studentList = null;
-		}
+		Session session = factory.openSession();
+		CriteriaQuery<LAstudent> cq = session.getCriteriaBuilder().createQuery(LAstudent.class);
+		cq.from(LAstudent.class);
+		List<LAstudent> studentList = session.createQuery(cq).getResultList();
+		session.close();
 		return studentList;
 	}
 	
-	/*@SuppressWarnings("unchecked")
-	public List<LAstudent> getAllStudents(){
-	      Session session = factory.openSession();
-	      Transaction tx = null;
-	      List<LAstudent> studentList = null;
-	      try{
-	         tx = session.beginTransaction();
-	         studentList = session.createQuery("FROM student").list();
-	         for (Iterator iterator1 = employees.iterator(); iterator1.hasNext();){
-	            Employee employee = (Employee) iterator1.next(); 
-	         }
-	         tx.commit();
-	      }catch (Exception e) {
-	         if (tx!=null) tx.rollback();
-	         e.printStackTrace(); 
-	      }finally {
-	         session.close(); 
-	      }
-	      return studentList;
-	   }*/
 	
-	/*public List<LAstudent> getAllStudents() {
-		Session session = factory.openSession();
-	    return session.createQuery("SELECT a FROM student a", LAstudent.class).getResultList();
-	}*/
-	
-	/*@SuppressWarnings("unchecked")
-	public List<LAstudent> getAllStudents() {
-
-        Transaction transaction = null;
-        List<LAstudent> studentList = null;
-        try (Session session = factory.openSession()) {
-            // start a transaction
-            transaction = session.beginTransaction();
-            // get an user object
-
-            studentList = session.createQuery("from student").getResultList();
-
-            // commit transaction
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-        return studentList;
-    }*/
-	
+	// přepsat!!
 	public static List<LAteacher> getAllTeachers() {
 		Session session = factory.openSession();
 		CriteriaQuery<LAteacher> cq = session.getCriteriaBuilder().createQuery(LAteacher.class);

@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,16 +13,16 @@ import com.bean.LAstudent;
 import com.hibernate.DBcommunication;
 
 /**
- * Servlet implementation class StudentsServlet
+ * Servlet implementation class EditServlet
  */
-@WebServlet("/students")
-public class StudentsServlet extends HttpServlet {
+@WebServlet("/edit")
+public class EditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBcommunication dbcom = new DBcommunication();   
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StudentsServlet() {
+    public EditServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,13 +32,13 @@ public class StudentsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		int stid = Integer.parseInt(request.getParameter("stid"));
 		try {
-			List<LAstudent> studentList = dbcom.getAllStudents();
-			request.setAttribute("studentList", studentList);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("students.jsp");
+			LAstudent student = dbcom.getStudentById(stid); 
+			RequestDispatcher dispatcher = request.getRequestDispatcher("edit.jsp");
+			request.setAttribute("student", student);
 			dispatcher.forward(request, response);
-				
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -51,6 +50,7 @@ public class StudentsServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
 		String cid = request.getParameter("cid");
@@ -59,37 +59,30 @@ public class StudentsServlet extends HttpServlet {
 		System.out.println(lname);
 		System.out.println(cid);
 		
-		if(fname == null || fname.isEmpty() || lname == null || lname.isEmpty() || cid == null || cid.isEmpty())
-		{
-			RequestDispatcher dispatcher = request.getRequestDispatcher("students.jsp");
-			request.setAttribute("message", "No box should stay empty.");
-			request.setAttribute("fname", fname);
-			request.setAttribute("lname", lname);
+		if(cid == null || cid.isEmpty()) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("edit.jsp");
+			request.setAttribute("message", "Class ID cannot be empty.");
 			request.setAttribute("cid", cid);
 			dispatcher.forward(request, response);
 
 			return;
-		}
+			}
 		
 		LAstudent st = new LAstudent(fname, lname, cid);
 		
 		try {
-			if(dbcom.addStudent(st)){
+			if(dbcom.updateStudent(st)){
 				// take me to which page? login page
 				response.sendRedirect("students");
 			} else {
 				//response.sendRedirect("register.html");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("students");
-				request.setAttribute("message", "Registration unsuccessful.");
+				request.setAttribute("message", "Update unsuccessful.");
 				dispatcher.forward(request, response);
 			}
-		} catch (Exception e) {
+		}catch (Exception e) {
 			// keep me on registration page
 			response.sendRedirect("index.jsp");
-			
 		}
-		
-		
 	}
-
 }

@@ -50,7 +50,7 @@
 					</li>
 					<li class="nav-item"><a class="nav-link" href="teachers.jsp">Teachers</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="students.jsp">Students</a>
+					<li class="nav-item"><a class="nav-link" href="students">Students</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="logout.jsp">Logout</a>
 					</li>
