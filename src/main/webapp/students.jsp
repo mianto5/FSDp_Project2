@@ -42,9 +42,9 @@
 						aria-current="page" href="index.jsp">Home</a></li>
 					<li class="nav-item"><a class="nav-link" href="classes">Classes</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="teachers.jsp">Teachers</a>
+					<li class="nav-item"><a class="nav-link" href="teachers">Teachers</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="students.jsp">Students</a>
+					<li class="nav-item"><a class="nav-link" href="students">Students</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="assign">Assignments</a>
 					</li>
@@ -78,8 +78,12 @@
 							class="form-control" id="lname" placeholder="Enter Last Name" name="lname">
 					</div>
 					<div class="form-group">
-						<label for="cid">Class ID: </label> <input type="text"
-							class="form-control" id="cid" placeholder="Enter Class ID" name="cid">
+						<label for="cid">Class ID: </label> 
+						<select class="form-control" id="cid" name="cid">
+							<c:forEach var="cl" items="${requestScope.classList }">
+								<option value="${cl.cid}">${cl.cname}</option>
+							</c:forEach>
+						</select>
 					</div>
 					<div>
 						<input type="submit" class="btn btn-primary" value="Register" />

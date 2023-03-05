@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bean.LAclass;
 import com.bean.LAstudent;
 import com.hibernate.DBcommunication;
 
@@ -36,7 +37,9 @@ public class StudentsServlet extends HttpServlet {
 		
 		try {
 			List<LAstudent> studentList = dbcom.getAllStudents();
+			List<LAclass> classList = dbcom.getAllClasses();
 			request.setAttribute("studentList", studentList);
+			request.setAttribute("classList", classList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("students.jsp");
 			dispatcher.forward(request, response);
 				

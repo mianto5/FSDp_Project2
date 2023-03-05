@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bean.LAassign;
+import com.bean.LAclass;
 import com.bean.LAstudent;
+import com.bean.LAsubject;
+import com.bean.LAteacher;
 import com.hibernate.DBcommunication;
 
 /**
@@ -36,7 +39,13 @@ public class AssignServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			List<LAassign> assignList = dbcom.getAllAssignments();
+			List<LAclass> classList = dbcom.getAllClasses();
+			List<LAsubject> subjectList = dbcom.getAllSubjects();
+			List<LAteacher> teacherList = dbcom.getAllTeachers();
 			request.setAttribute("assignList", assignList);
+			request.setAttribute("classList", classList);
+			request.setAttribute("subjectList", subjectList);
+			request.setAttribute("teacherList", teacherList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("assign.jsp");
 			dispatcher.forward(request, response);
 				
