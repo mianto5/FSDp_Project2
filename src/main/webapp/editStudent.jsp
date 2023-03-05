@@ -1,4 +1,5 @@
 <%@page import="com.bean.LAstudent"%>
+<%@page import="com.bean.LAclass"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -63,7 +64,7 @@
 		<h5>Update the student</h5>
 	</div>
 	<div class="container">
-		<form action="edit" method="post">
+		<form action="editStudent" method="post">
 
 			<div class="row">
 				<div class="col-lg-6 col-lg-offset-3">
@@ -81,9 +82,12 @@
 							class="form-control" id="lname" name="lname" value=${requestScope.student.lname }>
 					</div>
 					<div class="form-group">
-						<label for="cid">Class ID: </label> <input type="text"
-							class="form-control" id="cid" placeholder="Enter Class ID" name="cid"
-							value=${requestScope.student.cid }>
+						<label for="cid">Class ID: </label> 
+						<select class="form-control" id="cid" name="cid">
+							<c:forEach var="cl" items="${requestScope.classList }">
+								<option value="${cl.cid}">${cl.cname}</option>
+							</c:forEach>
+						</select>
 					</div>
 					<div>
 						<input type="submit" class="btn btn-primary" value="Save" />

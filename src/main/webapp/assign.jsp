@@ -113,6 +113,7 @@
                 <th>Class ID</th>
                 <th>Subject ID</th>
                 <th>Teacher ID</th>
+                <th>Edit</th>
                 <th>Delete</th>
             </tr>
             <c:forEach var="assign" items="${requestScope.assignList }">
@@ -120,6 +121,7 @@
 					<td>${ assign.cid}</td>
 					<td>${ assign.sbid}</td>
 					<td>${ assign.tid}</td>
+					<td><a href="editAssign?aid=${ assign.aid}">Edit</a> </td>
 					<td><a href="delete?ent=as&aid=${ assign.aid}">Delete</a> </td>
 				</tr>
 			</c:forEach>

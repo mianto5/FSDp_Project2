@@ -1,5 +1,6 @@
 package com.hibernate;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -94,6 +95,7 @@ public class DBcommunication {
 		cq.from(LAstudent.class);
 		List<LAstudent> studentList = session.createQuery(cq).getResultList();
 		session.close();
+		Collections.sort(studentList);
 		return studentList;
 	}
 	
@@ -145,6 +147,7 @@ public class DBcommunication {
 		cq.from(LAclass.class);
 		List<LAclass> classList = session.createQuery(cq).getResultList();
 		session.close();
+		Collections.sort(classList);
 		return classList;
 	}
 	
@@ -196,6 +199,7 @@ public class DBcommunication {
 		cq.from(LAteacher.class);
 		List<LAteacher> teacherList = session.createQuery(cq).getResultList();
 		session.close();
+		Collections.sort(teacherList);
 		return teacherList;
 	}
 	
@@ -247,6 +251,7 @@ public class DBcommunication {
 		cq.from(LAsubject.class);
 		List<LAsubject> subjectList = session.createQuery(cq).getResultList();
 		session.close();
+		Collections.sort(subjectList);
 		return subjectList;
 	}
 	
@@ -275,6 +280,32 @@ public class DBcommunication {
 		try{
 			transaction = session.beginTransaction();
 			session.save(as);
+			transaction.commit();
+		}catch (HibernateException e) {
+			if (transaction!=null)
+				transaction.rollback();
+			success = false;
+			e.printStackTrace(); 
+		}finally {
+			session.close(); 
+		}
+		return success;
+	}
+	
+	public LAassign getAssignmentById(int aid) {
+		Session session = factory.openSession();
+		LAassign a = session.get(LAassign.class, aid);
+		session.close();
+		return a;
+	}
+	
+	public boolean updateAssignment(LAassign a) {
+		boolean success = true;
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try{
+			transaction = session.beginTransaction();
+			session.update(a);
 			transaction.commit();
 		}catch (HibernateException e) {
 			if (transaction!=null)

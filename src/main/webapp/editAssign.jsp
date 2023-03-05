@@ -1,3 +1,6 @@
+<%@page import="com.bean.LAassign"%>
+<%@page import="com.bean.LAclass"%>
+<%@page import="com.bean.LAsubject"%>
 <%@page import="com.bean.LAstudent"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -8,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>LA Students</title>
+<title>LA Edit Assignment</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -60,67 +63,43 @@
 		</div>
 	</nav>
 	<div class="container">
-		<h5>Register a new student</h5>
+		<h5>Update the assignment</h5>
 	</div>
 	<div class="container">
-		<%
-		String message = (String) request.getAttribute("message");
-		if(message !=  null){%>
-			<div class="mesagge"><%= message %></div>
-		<%} %>
-		<form action="students" method="post">
+		<form action="editAssign" method="post">
 
 			<div class="row">
 				<div class="col-lg-6 col-lg-offset-3">
 					<div class="form-group">
-						<label for="fname">Student's First Name: </label> <input type="text"
-							class="form-control" id="fname" placeholder="Enter First Name" name="fname">
-					</div>
-
-					<div class="form-group">
-						<label for="lname">Student's Last Name: </label> <input type="text"
-							class="form-control" id="lname" placeholder="Enter Last Name" name="lname">
+						<label for="aid">Assignment ID: </label> <input type="text" readonly="readonly"
+							class="form-control" id="aid" name="aid" value=${requestScope.assign.aid }>
 					</div>
 					<div class="form-group">
-						<label for="cid">Class ID: </label> 
-						<select class="form-control" id="cid" name="cid">
-							<c:forEach var="cl" items="${requestScope.classList }">
-								<option value="${cl.cid}">${cl.cname}</option>
+						<label for="cid">Class ID: </label> <input type="text" readonly="readonly"
+							class="form-control" id="cid" name="cid" value=${requestScope.assign.cid }>
+					</div>
+					<div class="form-group">
+						<label for="sbid">Subject ID: </label> 
+						<select class="form-control" id="sbid" name="sbid">
+							<c:forEach var="sb" items="${requestScope.subjectList }">
+								<option value="${sb.sbid}">${sb.sname}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="tid">Teacher ID: </label> 
+						<select class="form-control" id="tid" name="tid">
+							<c:forEach var="te" items="${requestScope.teacherList }">
+								<option value="${te.tid}">${te.lname} ${te.fname}</option>
 							</c:forEach>
 						</select>
 					</div>
 					<div>
-						<input type="submit" class="btn btn-primary" value="Register" />
+						<input type="submit" class="btn btn-primary" value="Save" />
 					</div>
 				</div>
 			</div>
 		</form>
 	</div>
-	<br>
-	<div align="center" class="container">
-		<h5>Registered students</h5>
-	</div>
-    <div align="center">
-        <table class="table" border="1" cellpadding="5">
-            <tr>
-                <th>Last Name</th>
-                <th>First Name</th>
-                <th>Student's ID</th>
-                <th>Class ID</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            <c:forEach var="student" items="${requestScope.studentList }">
-				<tr>
-					<td>${ student.lname}</td>
-					<td>${ student.fname}</td>
-					<td>${ student.stid}</td>
-					<td>${ student.cid}</td>
-					<td><a href="editStudent?stid=${ student.stid}">Edit</a> </td>
-					<td><a href="delete?ent=st&stid=${ student.stid}">Delete</a> </td>
-				</tr>
-			</c:forEach>
-        </table>
-    </div>
-</body>
+	</body>
 </html>

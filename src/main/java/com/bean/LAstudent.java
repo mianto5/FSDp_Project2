@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "student")
-public class LAstudent {
+public class LAstudent implements Comparable<LAstudent>{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,5 +54,10 @@ public class LAstudent {
 	@Override
 	public String toString() {
 		return "LAstudent [stid=" + stid + ", fname=" + fname + ", lname=" + lname + ", cid=" + cid + "]";
+	}
+	@Override
+	public int compareTo(LAstudent o) {
+		// TODO Auto-generated method stub
+		return getLname().toLowerCase().compareTo(o.getLname().toLowerCase());
 	}
 }

@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "class")
-public class LAclass {
+public class LAclass implements Comparable<LAclass>{
 	
 	@Id
 	private String cid;
@@ -51,14 +51,19 @@ public class LAclass {
 	public void setStudents(List<LAstudent> students) {
 		this.students = students;
 	}
-	/*public List<LAassign> getAssignements() {
+	public List<LAassign> getAssignements() {
 		return assignements;
 	}
 	public void setAssignements(List<LAassign> assignements) {
 		this.assignements = assignements;
-	}*/
+	}
 	@Override
 	public String toString() {
 		return "LAclass [cid=" + cid + ", cname=" + cname + "]";
+	}
+	@Override
+	public int compareTo(LAclass o) {
+		// TODO Auto-generated method stub
+		return getCname().toLowerCase().compareTo(o.getCname().toLowerCase());
 	}
 }
